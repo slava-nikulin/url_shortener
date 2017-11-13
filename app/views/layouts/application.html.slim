@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title UrlShortener
+    = javascript_pack_tag 'application', defer: true
+    = stylesheet_pack_tag 'application'
+    javascript:
+      window.routes = {
+        root_url: "#{root_url}",
+        url_pairs_url: "#{url_pairs_url}",
+        new_url_pair_url: "#{new_url_pair_url}",
+      };
+  body
+    #main
+      nav.navbar.navbar-dark.bg-dark
+        a.navbar-brand :href="routes.root_url" My url shortener
+      = yield
+      #overlay v-show="validation.disablePage"
+        .load-bar
+          .bar
+          .bar
+          .bar

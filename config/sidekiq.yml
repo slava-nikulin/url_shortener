@@ -1,0 +1,8 @@
+:dynamic: true
+:logfile: ./log/sidekiq.log
+:schedule:
+  url_pairs_cleaner:
+    cron: '0 0 * * *'
+    class: UrlPairsCleanerWorker
+:queues:
+  - default
