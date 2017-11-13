@@ -1,0 +1,58 @@
+.container-fluid.bg-form
+  .container
+    form.py-4
+      h3 Simplify your links
+      .d-flex.flex-column.mt-sm-3
+        .w-50
+          input.form-control[
+            placeholder="Your original url here"
+            v-model="urlData.originalUrl"
+            v-bind:class="checkInput(validation.original_url_valid)"
+          ]
+          .invalid-feedback
+            | {{ validation.original_url_errors }}
+        .mt-2.w-25
+          input.form-control[
+            placeholder="Shorten url here"
+            v-model="urlData.shortUrl"
+            v-on:input="onShortChange"
+            v-on:focus="onShortFocus"
+            v-on:focusout="onShortUnFocus"
+            v-on:click="onShortClick"
+            v-on:keydown="onShortKeyDown"
+            v-bind:class="checkInput(validation.short_url_valid)"
+          ]
+          .invalid-feedback
+            | {{ validation.short_url_errors }}
+        small.form-text.text-muted
+          | Leave empty to automatically generate
+        .mt-2
+          button.btn.btn-dark[
+            type="submit"
+            v-on:click.prevent="onUrlPairsubmit"
+          ]
+            | Shorten url
+
+.container.mt-5 v-if="urlData.urlPairs.length > 0"
+  table.table.table-striped.table-bordered.table-hover.table-sm
+    thead
+      tr
+        th Original URL
+        th Short URL
+        th Created
+        th All clicks
+    tbody
+      tr v-for="urlPair in urlData.urlPairs"
+        td
+          a v-bind:href="constructExternalUrl(urlPair.original_url)"
+            | {{ urlPair.original_url }}
+        td
+          a v-bind:href="constructSiteUrl('/' + urlPair.short_path)"
+            | {{ constructSiteUrl("/" + urlPair.short_path) }}
+        td
+          | {{ urlPair.created_at }}
+        td
+          | {{ urlPair.clicks_count }}
+    tfoot
+      tr
+        td colspan="5"
