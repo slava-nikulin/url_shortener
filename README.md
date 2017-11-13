@@ -30,3 +30,8 @@ For production environments...
 ```sh
 $ NODE_ENV=production bundle exec rails webpacker:compile
 ```
+### TODO
+
+ * Refactor webpack environment configs
+ * Fix VueJS environment mode
+ * Automate Heroku deployment(now you need every time install yarn, install webpacker via yarn, compile assets ant restart server)
