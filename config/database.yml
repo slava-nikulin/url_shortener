@@ -14,5 +14,6 @@ test:
   database: url_shortener_test
 
 production:
+  adapter: postgresql
   encoding: utf8
   pool: 15
