@@ -30,8 +30,20 @@ For production environments...
 ```sh
 $ NODE_ENV=production bundle exec rails webpacker:compile
 ```
+### Docker
+
+Requirements
+ * [Docker 17.09](https://www.docker.com/)
+ * [docker-compose 1.17.1](https://docs.docker.com/compose/install/)
+
+ ```sh
+ $ docker-compose build
+ $ docker-compose up
+ ```
+Go to http://localhost:3000
+
 ### TODO
 
  * Refactor webpack environment configs
  * Fix VueJS environment mode
- * Automate Heroku deployment(now you need every time install yarn, install webpacker via yarn, compile assets ant restart server)
+ * Test js

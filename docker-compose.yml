@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:9.6.2'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+  redis:
+    command: redis-server
+    image: 'redis:3.2.8-alpine'
+    # ports:
+    #   - '6379'
+    volumes:
+      - 'redis:/var/lib/redis/data'
+
+  sidekiq:
+    command: ["./wait-for-it.sh", "redis:6379", "--", "sidekiq", "-C config/sidekiq.yml"]
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    build: .
+    volumes:
+      - '.:/url_shortener'
+      - 'bundle_data:/bundle'
+
+  website:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/url_shortener'
+      - 'bundle_data:/bundle'
+    command: ["./start-app.sh"]
+    # entrypoint: /news_app/docker-entrypoint-website.sh
+
+volumes:
+  redis:
+  postgres:
+  bundle_data:
