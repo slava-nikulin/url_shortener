@@ -1,3 +1,8 @@
+# Class describes url pairs
+# Attributes:
+#  original_url, String
+#  short_path, String
+#  clicks_count, Integer
 class UrlPair < ApplicationRecord
   validates :original_url, :short_path, uniqueness: true
   validates_format_of :original_url,

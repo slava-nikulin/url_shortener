@@ -1,5 +1,7 @@
 require "sidekiq-scheduler"
 
+# Class, that performs UrlPairs cleaning, that were created 15 and more days ago
+# Launched every day at 23:59
 class UrlPairsCleanerWorker
   include Sidekiq::Worker
 
